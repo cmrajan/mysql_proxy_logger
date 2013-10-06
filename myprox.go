@@ -4,6 +4,8 @@ import (
 	"io"
 	"log"
 	"net"
+	"fmt"
+//	"os"
 )
 
 const (
@@ -38,7 +40,10 @@ const (
 )
 
 func main() {
-	ln, err := net.Listen("tcp", ":3316")
+	fmt.Printf("Mysql Proxy Listening: 3307 \n")
+//	fmt.Printf("queries logged at: queries.log \n")
+	
+	ln, err := net.Listen("tcp", ":3307")
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -84,9 +89,11 @@ func forward(src, sink net.Conn) {
 }
 
 func forwardWithLog(src, sink net.Conn) {
+//	os.OpenFile("queries.log", os.O_RDWR|os.O_APPEND, 0666)
 	buffer := make([]byte, 16777219)
 	for {
 		n, err := src.Read(buffer)
+	//	fmt.Print("dump: %s \n\n", string(buffer))
 		if err != nil && err != io.EOF {
 			return
 		}
@@ -94,16 +101,20 @@ func forwardWithLog(src, sink net.Conn) {
 		if n >= 5 {
 			switch buffer[4] {
 			case comQuery:
-				log.Printf("Query: %s\n", string(buffer[5:n]))
+			//	log.Printf("\n Query: %s \n", string(buffer[5:n]))
+				fmt.Printf("\n Query: %s \n", string(buffer[5:n]))
 			case comStmtPrepare:
-				log.Printf("Prepare Query: %s\n", string(buffer[5:n]))
+			//	log.Printf("\n Prepare Query: %s \n", string(buffer[5:n]))
+				fmt.Printf("\n Prepare Query: %s \n", string(buffer[5:n]))
 			}
 
 			switch buffer[11] {
 			case comQuery:
-				log.Printf("Query: %s\n", string(buffer[12:n]))
+			//	log.Printf("\n Query: %s \n", string(buffer[12:n]))
+				fmt.Printf("\n Query: %s \n", string(buffer[12:n]))
 			case comStmtPrepare:
-				log.Printf("Prepare Query: %s\n", string(buffer[12:n]))
+			//	log.Printf("\n Prepare Query: %s \n", string(buffer[12:n]))
+				fmt.Printf("\n Prepare Query: %s \n", string(buffer[12:n]))
 			}
 		}
 
