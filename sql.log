@@ -1,0 +1,23 @@
+Mysql Proxy Listening: 3307 
+
+ Query: select @@version_comment limit 1 
+
+ Query: show tables 
+
+ Query: show databases 
+
+ Query: SELECT DATABASE() 
+
+ Query: show databases 
+
+ Query: show tables 
+
+ Query: select * from user 
+
+ Query: show tables 
+
+ Query: select * from auctions 
+
+ Query: select * from versions 
+
+ Query: select * from users 

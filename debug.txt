@@ -1,0 +1,6 @@
+./myprox  2>&1 | tee sql.log
+
+
+
+
+netstat -anp tcp
