@@ -68,3 +68,12 @@ it is not designed for production usage, it is for debugging and testing purpose
 
 if you need mysql/mariadb load balancer/failover/reverse proxy for production use Haproxy
 
+
+
+
+# To Do
+
+had a use case where the db was on a different server, so need to configure it
+
+add timestamp to the logs to make the trace easier when paired with the web server log
+
