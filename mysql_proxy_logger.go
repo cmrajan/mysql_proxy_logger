@@ -9,6 +9,7 @@ import (
 	"os"
 	"os/signal"
     "syscall"
+    "time"
 )
 
 const (
@@ -120,7 +121,7 @@ func forwardWithLog(src, sink net.Conn) {
 			switch buffer[4] {
 			case comQuery:
 			//	log.Printf("\n Query: %s \n", string(buffer[5:n]))
-				fmt.Printf("\n Query: %s \n", string(buffer[5:n]))
+				fmt.Printf("\n Query: %s : %s \n", time.Now().Format(time.RFC3339Nano), string(buffer[5:n]))   //time.Now().Format(time.RFC850)  Tuesday, 08-Oct-13 14:51:48 EDT // .Format("2006-01-08 15:05:06")
 			case comStmtPrepare:
 			//	log.Printf("\n Prepare Query: %s \n", string(buffer[5:n]))
 				fmt.Printf("\n Prepare Query: %s \n", string(buffer[5:n]))
