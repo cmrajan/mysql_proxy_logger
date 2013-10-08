@@ -51,12 +51,14 @@ func signalCatcher() {
 }
 
 	var localPort *string = flag.String("p", "3307", "localport")
+    var mysqlserverIP *string = flag.String("h", "127.0.0.1", "mysqlserverIP")
+    var mysqlserverPort *string = flag.String("P", "3306", "mysqlserverPort")
 
 func main() {
 	go signalCatcher()
     flag.Parse()
 
-	fmt.Printf("Mysql Proxy Listening: %s \n",*localPort)
+	fmt.Printf("Mysql Proxy Listening: localip: 127.0.0.1 localport:  %s mysqlIP: %s mysqlPort: %s \n",*localPort, *mysqlserverIP,*mysqlserverPort)
 //	fmt.Printf("queries logged at: queries.log \n")
 	
 	ln, err := net.Listen("tcp", fmt.Sprint(":",*localPort))
@@ -76,7 +78,7 @@ func main() {
 }
 
 func proxify(conn net.Conn) {
-	server, err := net.Dial("tcp", "localhost:3306")
+	server, err := net.Dial("tcp", fmt.Sprint(*mysqlserverIP + ":" + *mysqlserverPort))  //"localhost:3306"
 	if err != nil {
 		log.Println("Could not dial server")
 		log.Println(err)
