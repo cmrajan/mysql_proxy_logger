@@ -65,8 +65,13 @@ for example one for tracking the application, one for tracking the running of th
 
 
 
+logging to file
+
+./myprox  2>&1 > sql.log
 
 
+
+logging to file and showing it on stdout
 
 myprox
 ======
