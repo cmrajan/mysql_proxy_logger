@@ -34,3 +34,8 @@ kill -l
 21) SIGTTIN	22) SIGTTOU	23) SIGIO	24) SIGXCPU
 25) SIGXFSZ	26) SIGVTALRM	27) SIGPROF	28) SIGWINCH
 29) SIGINFO	30) SIGUSR1	31) SIGUSR2	
+
+
+
+
+go build mysql_proxy_logger.go && ./mysql_proxy_logger
