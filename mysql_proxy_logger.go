@@ -8,7 +8,7 @@ import (
 	"flag"
 	"os"
 	"os/signal"
-    "syscall"
+   // "syscall"
     "time"
 )
 
@@ -45,7 +45,8 @@ const (
 
 func signalCatcher() {
         ch := make(chan os.Signal)
-        signal.Notify(ch, syscall.SIGINT)
+        //signal.Notify(ch, syscall.SIGINT)
+        signal.Notify(ch, os.Interrupt)
         <-ch
         log.Println("CTRL-C; exiting")
         os.Exit(0)
