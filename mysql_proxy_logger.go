@@ -69,6 +69,7 @@ func main() {
     flag.Parse()
 
 	fmt.Printf("Mysql Proxy Listening: localip: 127.0.0.1 localport:  %s mysqlIP: %s mysqlPort: %s \n",*localPort, *mysqlserverIP,*mysqlserverPort)
+	fmt.Printf("pid: %d",os.Getpid())
 
 	
 	ln, err := net.Listen("tcp", fmt.Sprint(":",*localPort))
