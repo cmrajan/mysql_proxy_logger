@@ -8,7 +8,7 @@ import (
 	"flag"
 	"os"
 	"os/signal"
-   // "syscall"
+   "syscall"
     "time"
 )
 
@@ -45,11 +45,19 @@ const (
 
 func signalCatcher() {
         ch := make(chan os.Signal)
-        //signal.Notify(ch, syscall.SIGINT)
+        signal.Notify(ch, syscall.SIGINT,syscall.SIGQUIT)
         signal.Notify(ch, os.Interrupt)
-        <-ch
-        log.Println("CTRL-C; exiting")
-        os.Exit(0)
+        //<-ch
+        //log.Println("CTRL-C; exiting")
+        //os.Exit(0)
+go func() {                                                        
+  for sig := range ch {                                             
+    log.Printf("captured %v, exiting ", sig)
+   // pprof.StopCPUProfile()                                         
+    os.Exit(1)                                                     
+  }                                                                
+}() 
+
 }
 
 	var localPort *string = flag.String("p", "3307", "localport")
