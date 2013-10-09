@@ -4,3 +4,19 @@
 
 
 netstat -anp tcp
+
+
+ps aux | grep go
+
+get the PID
+
+send a message to process
+kill -s USR1 7117
+
+kill -s SIGINT 7117
+
+kill -s SIGQUIT  7117
+
+ctrl+c sends SIGINT
+
+ctrl+\ send SIGQUIT
