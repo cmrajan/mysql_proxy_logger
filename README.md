@@ -1,11 +1,79 @@
-myprox
-======
+mysql_proxy_logger
+===================
 
 Simple query logging mysql proxy written in Go 
 
+updated code with many new features
+
+has some sensible defaults, but is also configurable 
+
+go build mysql_proxy_logger.go
 
 
-log to a file
+./mysql_proxy_logger --help
+
+  -P="3306": mysqlserverPort
+  -h="127.0.0.1": mysqlserverIP
+  -p="3307": localport
+
+
+scenario 1
+mysql, proxy and app are on same machine
+
+
+
+mysql runs on 127.0.0.1 and connects at 3306
+proxy runs at 3307 and connects to the proxy
+app is configured to use the proxy at 127.0.0.1 with port 3307 with existing mysql username password
+
+
+run
+./mysql_proxy_logger
+
+scenario 2
+mysql is in separate box, proxy and app are on same box
+
+mysql runs on seperate box, can be called from outside with  202.54.202.54 and accepts connection at 3306
+run the proxy with host and port set to use the mysql server info
+run the app with app hostname and port at 127.0.0.1 and 3307, mysql username and password remains same
+
+./mysql_proxy_logger -h 202.54.202.54 -P 3307
+
+
+
+scenario 3
+
+mysql and proxy are on same box, app server is in a separate box
+
+mysql server runs as usual
+proxy runs as usual, without any change in config
+app uses the mysql username, password and hostname as such, only the port number should be changed to 3307
+
+
+run
+./mysql_proxy_logger
+
+
+scenario 4
+
+need to run multiple proxies, 
+
+for example one for tracking the application, one for tracking the running of the background task
+
+./mysql_proxy_logger -p 3307  # first proxy
+./mysql_proxy_logger -p 3308  # second proxy
+
+
+
+
+
+
+myprox
+======
+original code which I forked from https://github.com/acsellers/myprox
+
+
+
 
 # Install
 
