@@ -73,6 +73,8 @@ logging to file
 
 logging to file and showing it on stdout
 
+./myprox  2>&1 | tee sql.log
+
 myprox
 ======
 original code which I forked from https://github.com/acsellers/myprox
