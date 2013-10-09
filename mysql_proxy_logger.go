@@ -60,7 +60,7 @@ func main() {
     flag.Parse()
 
 	fmt.Printf("Mysql Proxy Listening: localip: 127.0.0.1 localport:  %s mysqlIP: %s mysqlPort: %s \n",*localPort, *mysqlserverIP,*mysqlserverPort)
-//	fmt.Printf("queries logged at: queries.log \n")
+
 	
 	ln, err := net.Listen("tcp", fmt.Sprint(":",*localPort))
 	if err != nil {
@@ -108,7 +108,7 @@ func forward(src, sink net.Conn) {
 }
 
 func forwardWithLog(src, sink net.Conn) {
-//	os.OpenFile("queries.log", os.O_RDWR|os.O_APPEND, 0666)
+
 	buffer := make([]byte, 16777219)
 	for {
 		n, err := src.Read(buffer)
@@ -120,19 +120,15 @@ func forwardWithLog(src, sink net.Conn) {
 		if n >= 5 {
 			switch buffer[4] {
 			case comQuery:
-			//	log.Printf("\n Query: %s \n", string(buffer[5:n]))
-				fmt.Printf("\n Query: %s : %s \n", time.Now().Format(time.RFC3339Nano), string(buffer[5:n]))   //time.Now().Format(time.RFC850)  Tuesday, 08-Oct-13 14:51:48 EDT // .Format("2006-01-08 15:05:06")
+				fmt.Printf("\n Query: %s : %s \n", time.Now().Format(time.RFC3339Nano), string(buffer[5:n]))   
 			case comStmtPrepare:
-			//	log.Printf("\n Prepare Query: %s \n", string(buffer[5:n]))
 				fmt.Printf("\n Prepare Query: %s \n", string(buffer[5:n]))
 			}
 
 			switch buffer[11] {
 			case comQuery:
-			//	log.Printf("\n Query: %s \n", string(buffer[12:n]))
 				fmt.Printf("\n Query: %s \n", string(buffer[12:n]))
 			case comStmtPrepare:
-			//	log.Printf("\n Prepare Query: %s \n", string(buffer[12:n]))
 				fmt.Printf("\n Prepare Query: %s \n", string(buffer[12:n]))
 			}
 		}
